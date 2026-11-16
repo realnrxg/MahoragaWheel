@@ -1,0 +1,33 @@
+plugins {
+    id 'net.fabricmc.fabric-loom-remap' version '1.14.10'
+}
+
+version = '1.0.0'
+group = 'dev.adaptation'
+
+dependencies {
+    minecraft 'com.mojang:minecraft:1.21.11'
+    mappings loom.officialMojangMappings()
+    modImplementation 'net.fabricmc:fabric-loader:0.20.1'
+    modImplementation 'net.fabricmc.fabric-api:fabric-api:0.141.6+1.21.11'
+}
+
+tasks.withType(JavaCompile).configureEach { options.release = 21 }
+java { withSourcesJar() }
+
+tasks.withType(Jar).configureEach { from('LICENSE') }
+
+processResources {
+    inputs.property 'version', project.version
+    filesMatching('fabric.mod.json') { expand version: project.version }
+}
+
+tasks.register('meshCheck', JavaExec) {
+    dependsOn testClasses
+    classpath = sourceSets.test.runtimeClasspath
+    mainClass = 'dev.adaptation.WheelMeshCheck'
+    enableAssertions = true
+}
+check.dependsOn meshCheck
+// The dependency-free mesh checks run through JavaExec rather than JUnit.
+test { failOnNoDiscoveredTests = false }

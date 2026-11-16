@@ -1,0 +1,22 @@
+{
+  "schemaVersion": 1,
+  "id": "mahoraga_wheel",
+  "version": "${version}",
+  "name": "Mahoraga's Wheel",
+  "authors": ["nrxg"],
+  "contact": {
+    "homepage": "https://github.com/realnrxg/MahoragaWheel",
+    "sources": "https://github.com/realnrxg/MahoragaWheel"
+  },
+  "icon": "assets/mahoraga_wheel/icon.png",
+  "description": "Adds the wheel of adaptation above the players head",
+  "license": "MIT",
+  "environment": "client",
+  "entrypoints": { "client": ["dev.adaptation.MahoragaWheel"] },
+  "depends": {
+    "fabricloader": ">=0.18.2",
+    "minecraft": "1.21.11",
+    "java": ">=21",
+    "fabric-api": ">=0.141.6+1.21.11"
+  }
+}

@@ -3,10 +3,11 @@ package dev.adaptation;
 import java.io.IOException;
 import java.nio.file.Path;
 
-import com.mojang.blaze3d.PrimitiveTopology;
-import com.mojang.blaze3d.pipeline.DepthStencilState;
-import com.mojang.blaze3d.pipeline.RenderPipeline;
-import com.mojang.blaze3d.platform.CompareOp;
+import com.mojang.renderpearl.api.pipeline.PrimitiveTopology;
+import com.mojang.renderpearl.api.pipeline.DepthStencilState;
+import com.mojang.renderpearl.api.pipeline.RenderPipeline;
+import com.mojang.renderpearl.api.pipeline.ColorTargetState;
+import com.mojang.renderpearl.api.pipeline.CompareOp;
 import com.mojang.blaze3d.vertex.DefaultVertexFormat;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
@@ -35,6 +36,7 @@ public final class MahoragaWheel implements ClientModInitializer {
             .withLocation(Identifier.fromNamespaceAndPath("mahoraga_wheel", "pipeline/wheel"))
             .withVertexBinding(0, DefaultVertexFormat.POSITION_COLOR)
             .withPrimitiveTopology(PrimitiveTopology.TRIANGLES)
+            .withColorTargetState(ColorTargetState.DEFAULT)
             .withDepthStencilState(new DepthStencilState(CompareOp.GREATER_THAN_OR_EQUAL, true))
             .withCull(false)
             .build();
@@ -89,7 +91,7 @@ public final class MahoragaWheel implements ClientModInitializer {
                             poses.setIdentity();
                             poses.translate(anchor.x, anchor.y, anchor.z);
                             float partialTick = client.getDeltaTracker().getGameTimeDeltaPartialTick(false);
-                            poses.mulPose(com.mojang.math.Axis.YP.rotationDegrees((player.tickCount + partialTick) * 1.5f % 360));
+                            poses.rotateDegrees(com.mojang.math.Axis.YP, (player.tickCount + partialTick) * 1.5f % 360);
                             boolean white = settings.white();
                             collector.submitCustomGeometry(poses, WHEEL, (pose, consumer) -> draw(pose, consumer, white));
                         } finally {

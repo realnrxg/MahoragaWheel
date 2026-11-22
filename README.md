@@ -4,8 +4,10 @@ Adds the Wheel of Adaptation from jjk above the head of ur player
 - This is visual only it does not add any custom features
 
 Requires: 
-- Fabric Loader: 0.18.2+
-- Supported Versions: 1.21.11
+- Fabric Loader: 0.20.1+
+- Supported Versions: 26.2
+- Fabric API: 0.161.0+26.2 or newer for Minecraft 26.2
+- Java: 25+
 
 | Command | Description |
 |---|---|
@@ -16,5 +18,5 @@ Requires:
 
 build
 ```
-gradlew build
+./gradlew build
 ```
